@@ -13,8 +13,6 @@ export const getTasks = async (accesstoken: TokenData, page: number) => {
     .then(res => res.data)
     .catch(err => console.log(err))
 
-  console.log(data)
-
   const tasks = data.map((task: Task) => ({
     id: task.id,
     node_id: task.node_id,
