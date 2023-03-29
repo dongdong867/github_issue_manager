@@ -6,3 +6,9 @@ type Task = {
   title: string
   body: string
 }
+
+type SendTaskData = {
+  number?: number
+  title: string
+  body: string
+}
