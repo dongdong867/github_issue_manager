@@ -1,11 +1,5 @@
 import axios from "axios";
 
-type TokenData = {
-  access_token: string,
-  token_type: string,
-  scope: string
-}
-
 export const getAccessToken = async (code: string) => {
   axios.defaults.headers.common['Accept'] = 'application/json'
   const data: TokenData = await axios

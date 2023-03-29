@@ -1,28 +1,6 @@
 import React from 'react'
 import { getAccessToken } from './libs/getAccessToken'
-import { getRepo } from './libs/getRepo'
 import { getTasks } from './libs/getTasks'
-
-type Repo = {
-	id: number
-	node_id: string
-	name: string
-}
-
-type TokenData = {
-	access_token: string
-	token_type: string
-	scope: string
-}
-
-type Task = {
-	id: number
-	node_id: string
-	number: number
-	state: string
-	title: string
-	body: string
-}
 
 export default async function Home({
 	searchParams

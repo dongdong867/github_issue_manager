@@ -1,20 +1,4 @@
 import axios from "axios"
-import { type } from "os"
-
-type TokenData = {
-  access_token: string,
-  token_type: string,
-  scope: string
-}
-
-type Task = {
-  id: number,
-  node_id: string,
-  number: number,
-  state: string,
-  title: string,
-  body: string
-}
 
 export const getTasks = async (accesstoken: TokenData, page: number) => {
   axios.defaults.headers.common['Accept'] = 'application/vnd.github+json'
