@@ -6,25 +6,25 @@ type Repo = {
   name: string
 }
 
-type OauthReturn = {
-  accessToken: string,
-  scope: string,
+type TokenData = {
+  access_token: string,
   token_type: string
+  scope: string,
 }
 
-export const getRepo = async (accessToken: string) => {
-  const tokens = accessToken.split('&')
-  const token = tokens[0].substring(tokens[0].indexOf('=') + 1)
+export const getRepo = async (accessToken: TokenData) => {
   const data: Repo[] = await axios
     .get('https://api.github.com/user/repos', {
-      headers: { Authorization: 'bearer ' + token }
+      headers: { Authorization: 'bearer ' + accessToken.access_token }
     })
     .then(res => res.data)
     .catch(err => console.log(err))
 
-  return data.map((repo: Repo) => ({
+  const repos = data.map((repo: Repo) => ({
     id: repo.id,
     node_id: repo.node_id,
     name: repo.name
   }))
+
+  return repos
 }
