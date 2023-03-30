@@ -26,6 +26,7 @@ export default async function Home({
 				<div>task state: {task.state}</div>
 				<div>task title: {task.title}</div>
 				<div>task body: {task.body}</div>
+				<div>task labels: {task.labels.map((label) => label.name)}</div>
 			</>
 		))
 	}

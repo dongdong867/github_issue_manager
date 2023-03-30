@@ -8,7 +8,8 @@ export const updateTask = async (accesstoken: TokenData, task: SendTaskData) => 
     await axios
       .patch(`https://api.github.com/repos/${process.env.GITHUB_REPOSITORY_OWNER}/${process.env.GITHUB_REPOSITORY}/issues/${task.number}`, {
         title: task.title,
-        body: task.body
+        body: task.body,
+        labels: task.labels
       })
       .catch(err => console.log(err))
   } else {

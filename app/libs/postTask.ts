@@ -7,7 +7,8 @@ export const postTask = async (accesstoken: TokenData, task: SendTaskData) => {
   await axios
     .post(`https://api.github.com/repos/${process.env.GITHUB_REPOSITORY_OWNER}/${process.env.GITHUB_REPOSITORY}/issues`, {
       title: task.title,
-      body: task.body
+      body: task.body,
+      labels: ['open']
     })
     .catch(err => console.log(err))
 }
