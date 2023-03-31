@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+	height: 100vh;
+}
+
+.shadow {
+	box-shadow: -5px -5px 15px #fcfcfc, 6px 6px 18px -14px #878787,
+		7px 6px 7px -6px rgba(0, 0, 0, 0.11);
+}
