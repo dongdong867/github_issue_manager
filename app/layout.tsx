@@ -2,8 +2,9 @@ import './global.css'
 import { Montserrat } from 'next/font/google'
 
 const montserrat = Montserrat({
-	variable: '--font-montserrat',
-	display: 'swap'
+	variable: '--font-Montserrat',
+	display: 'swap',
+	preload: false
 })
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
