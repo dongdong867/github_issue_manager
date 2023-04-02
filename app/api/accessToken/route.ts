@@ -1,13 +1,8 @@
-import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
 //get github access token with code given
 export async function POST(request: NextRequest) {
-	console.log('post request triggered')
-	const cookiesStore = cookies()
-
 	const code = request.nextUrl.searchParams.get('code')
-	console.log('code: ' + code)
 
 	const client_id = process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID
 	const client_secret = process.env.NEXT_PUBLIC_GITHUB_CLIENT_SECRET
@@ -31,8 +26,6 @@ export async function POST(request: NextRequest) {
 
 	const tokenData: Promise<JSON> = await data.json()
 	const token: TokenData = JSON.parse(JSON.stringify(tokenData))
-
-	console.log('token: ' + token.access_token)
 
 	return NextResponse.json(token.access_token, {
 		headers: {

@@ -13,7 +13,6 @@ export async function GET(request: NextRequest) {
 	const accessToken = cookiesStore.get('accessToken')?.value
 
 	const page = request.nextUrl.searchParams.get('page')
-	console.log(page + '#')
 
 	const data = await fetch(
 		`https://api.github.com/repos/${owner}/${repository}/issues?per_page=10&page=${page}`,

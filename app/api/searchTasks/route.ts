@@ -28,10 +28,6 @@ export async function GET(request: NextRequest) {
 			break
 	}
 
-	console.log(
-		`https://api.github.com/search/issues?q=${query}+is:issue+repo:${owner}/${repository}${label}&per_page=10&page=${page}`
-	)
-
 	const data = await fetch(
 		`https://api.github.com/search/issues?q=${query}+is:issue+repo:${owner}/${repository}${label}&per_page=10&page=${page}`,
 		{
@@ -57,6 +53,6 @@ export async function GET(request: NextRequest) {
 		body: task.body,
 		labels: task.labels.map((label) => ({ name: label.name }))
 	}))
-	console.log(tasks)
+
 	return NextResponse.json(tasks)
 }
