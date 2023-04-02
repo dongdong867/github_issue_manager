@@ -67,15 +67,13 @@ const Home = () => {
 
 const useIsOnScreen = (ref: any) => {
 	const [isIntersecting, setIsIntersecting] = useState(false)
-	const observer = useMemo(
-		() => new IntersectionObserver(([entry]) => setIsIntersecting(entry.isIntersecting)),
-		[]
-	)
+
 	useEffect(() => {
+		const observer = new IntersectionObserver(([entry]) => setIsIntersecting(entry.isIntersecting))
 		observer.observe(ref.current)
 
 		return () => observer.disconnect()
-	}, [ref, observer])
+	}, [ref])
 
 	return isIntersecting
 }
