@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import Task from './components/Task'
 import Search from './components/Search'
 
@@ -11,18 +11,38 @@ const Home = () => {
 	const [page, setPage] = useState(1)
 	const [isSearching, setIsSearching] = useState(false)
 	const [isLoading, setLoading] = useState(false)
+	const [hasTask, setHasTask] = useState(true)
 
-	useEffect(() => {
-		setLoading(true)
+	const listEnd = useRef(null)
+	const isEndOfList = useIsOnScreen(listEnd)
+
+	const fetchTasks = async () => {
 		fetch(`/api/getTasks?page=${page}`, {
 			cache: 'no-store'
 		})
 			.then((res) => res.json())
-			.then((data) => {
-				setTasks(data)
-				setLoading(false)
+			.then((data: Task[]) => {
+				setTasks((e) => [...e, ...data])
+				if (data.length == 0) {
+					setHasTask(false)
+				}
 			})
-	}, [])
+	}
+
+	useEffect(() => {
+		let ignore = false
+		if (!isSearching && !ignore && hasTask) {
+			setLoading(true)
+			fetchTasks().then(() => setLoading(false))
+			setPage((e) => e + 1)
+		}
+
+		return () => {
+			ignore = true
+		}
+	}, [isEndOfList])
+
+	const taskList = tasks.map((task) => <Task key={task.number} task={task} />)
 
 	if (isLoading) return <div>Loading</div>
 	if (!tasks) return <div>No data</div>
@@ -30,16 +50,34 @@ const Home = () => {
 	return (
 		<div>
 			<Search
-				page={page}
+				isEndOfList={isEndOfList}
 				isSearching={isSearching}
 				setIsSearching={setIsSearching}
 				setTasks={setTasks}
 			/>
-			{tasks.map((task) => (
-				<Task key={task.number} task={task} />
-			))}
+			{taskList}
+			{taskList.length >= 10 ? (
+				<div ref={listEnd}>end</div>
+			) : (
+				<div ref={listEnd} className='absolute top-[110vh]'></div>
+			)}
 		</div>
 	)
+}
+
+const useIsOnScreen = (ref: any) => {
+	const [isIntersecting, setIsIntersecting] = useState(false)
+	const observer = useMemo(
+		() => new IntersectionObserver(([entry]) => setIsIntersecting(entry.isIntersecting)),
+		[]
+	)
+	useEffect(() => {
+		observer.observe(ref.current)
+
+		return () => observer.disconnect()
+	}, [ref, observer])
+
+	return isIntersecting
 }
 
 export default Home
