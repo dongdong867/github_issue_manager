@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from 'react'
 import EditButton from './update/EditButton'
 import DeleteButton from './update/DeleteButton'
-import Label from './Label'
 import { getLabelBorderColor, getLabelTextColor } from '@/app/lib/getLabelColor'
+import UpdateTask from './update/UpdateTask'
 
 type Params = {
 	task: Task
@@ -54,7 +54,13 @@ const Task = ({ task }: Params) => {
 						<div className='flex flex-col gap-y-10'>
 							<div className='text-xl h-max break-all'>{editTask.body}</div>
 							<div className='flex justify-end gap-x-1 text-primary-content-light font-semibold'>
-								<EditButton task={editTask} edit={edit} setEdit={setEdit} setUpdated={setUpdated} />
+								<EditButton
+									task={editTask}
+									edit={edit}
+									passed={true}
+									setEdit={setEdit}
+									setUpdated={setUpdated}
+								/>
 								<DeleteButton task={editTask} setDeleted={setDeleted} />
 							</div>
 						</div>
@@ -62,29 +68,18 @@ const Task = ({ task }: Params) => {
 				</div>
 			)}
 			{edit && (
-				<div className='mt-4 flex flex-col gap-y-10'>
-					<Label label={editLabel} route='task' setLabel={setEditLabel} />
-					<div className='flex flex-col gap-y-5'>
-						<div>
-							<div className='font-medium'>TITLE</div>
-							<input
-								type='text'
-								onChange={(e) => setEditTitle(e.target.value)}
-								value={editTitle}
-								className=' bg-base-light pl-3 border-b-2 border-base-dark text-3xl font-bold'
-							/>
-						</div>
-						<div
-							contentEditable
-							suppressContentEditableWarning={true}
-							onChange={(e) => setEditBody(e.currentTarget.innerHTML)}
-							className='h-max border-b-2 border-base-dark bg-base-light pl-3 text-xl'
-						>
-							{editBody}
-						</div>
-					</div>
-					<EditButton task={editTask} edit={edit} setEdit={setEdit} setUpdated={setUpdated} />
-				</div>
+				<UpdateTask
+					title={editTitle}
+					body={editBody}
+					label={editLabel}
+					task={editTask}
+					edit={edit}
+					setEdit={setEdit}
+					setUpdated={setUpdated}
+					setTitle={setEditTitle}
+					setBody={setEditBody}
+					setLabel={setEditLabel}
+				/>
 			)}
 		</div>
 	)
