@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import SearchBar from './search/SearchBar'
 import SearchButton from './search/SearchButton'
 import SearchLabel from './Label'
 
@@ -17,7 +16,12 @@ const Search = ({ isEndOfList, isSearching, setIsSearching, setTasks }: Params) 
 	return (
 		<div className='sticky top-0 w-screen bg-base-dark px-5 py-3 flex justify-around gap-x-3 text-lg'>
 			<SearchLabel label={label} route='search' setLabel={setLabel} />
-			<SearchBar value={query} onChange={(e) => setQuery(e.target.value)} />
+			<input
+				type='text'
+				value={query}
+				onChange={(e) => setQuery(e.target.value)}
+				className='w-10 grow shrink sm:w-max rounded-small px-2 font-semibold'
+			/>
 			<SearchButton
 				key={query}
 				query={query}
