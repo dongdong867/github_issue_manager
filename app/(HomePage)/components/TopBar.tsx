@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
 import SearchButton from './search/SearchButton'
 import SearchLabel from './Label'
+import CreateButton from './create/CreateButton'
 
 type Params = {
 	isEndOfList: boolean
 	isSearching: boolean
 	setIsSearching: React.Dispatch<React.SetStateAction<boolean>>
 	setTasks: React.Dispatch<React.SetStateAction<Task[]>>
+	setIsCreating: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const Search = ({ isEndOfList, isSearching, setIsSearching, setTasks }: Params) => {
+const TopBar = ({ isEndOfList, isSearching, setIsSearching, setTasks, setIsCreating }: Params) => {
 	const [query, setQuery] = useState('')
 	const [label, setLabel] = useState('all')
 
@@ -31,8 +33,9 @@ const Search = ({ isEndOfList, isSearching, setIsSearching, setTasks }: Params) 
 				setIsSearching={setIsSearching}
 				setTasks={setTasks}
 			/>
+			<CreateButton setIsCreating={setIsCreating} />
 		</div>
 	)
 }
 
-export default Search
+export default TopBar
