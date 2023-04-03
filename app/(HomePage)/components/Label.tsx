@@ -1,6 +1,6 @@
 'use client'
 
-import { getLabelColor } from '@/app/lib/getLabelColor'
+import { getLabelBorderColor, getLabelTextColor } from '@/app/lib/getLabelColor'
 
 type Params = {
 	label: string
@@ -9,28 +9,28 @@ type Params = {
 }
 
 const Label = ({ label, route, setLabel }: Params) => {
-	let primaryColor = ''
 	let bgColor = ''
-	let borderColor = getLabelColor(label)
+	let textColor = getLabelTextColor(label)
+	const borderColor = getLabelBorderColor(label)
 
 	switch (route) {
 		case 'task':
-			primaryColor = 'base-dark'
-			bgColor = 'base-light'
+			textColor = 'text-primary-content-dark'
+			bgColor = 'bg-base-light'
 			break
 		case 'search':
-			primaryColor = 'base-light'
-			bgColor = 'base-dark'
+			textColor = 'text-primary-content-light'
+			bgColor = 'bg-base-dark'
 	}
 
 	return (
 		<div
-			className={`rounded-small w-max border-${borderColor} border-2 overflow-hidden p-1 shrink-0 font-medium`}
+			className={`rounded-small w-max ${borderColor} border-2 overflow-hidden p-1 shrink-0 font-medium`}
 		>
 			<select
 				value={label}
 				onChange={(e) => setLabel(e.target.value)}
-				className={`appearance-none bg-${bgColor} text-${primaryColor} text-right px-2`}
+				className={`appearance-none ${bgColor} ${textColor} text-right px-2`}
 			>
 				{route == 'search' && <option value=''>all</option>}
 				<option value='open'>open</option>

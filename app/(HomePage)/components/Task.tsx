@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import EditButton from './update/EditButton'
 import DeleteButton from './update/DeleteButton'
 import Label from './Label'
-import { getLabelColor } from '@/app/lib/getLabelColor'
+import { getLabelBorderColor, getLabelTextColor } from '@/app/lib/getLabelColor'
 
 type Params = {
 	task: Task
@@ -19,14 +19,15 @@ const Task = ({ task }: Params) => {
 	const [updated, setUpdated] = useState(false)
 	const [deleted, setDeleted] = useState(false)
 
-	const labelColor = getLabelColor(task.labels[0].name)
-
 	const editTask: Task = {
 		...task,
 		title: editTitle,
 		body: editBody,
 		labels: [{ name: editLabel as 'open' | 'in_progress' | 'done' }]
 	}
+
+	const labelTextColor = getLabelTextColor(editTask.labels[0].name)
+	const labelBorderColor = getLabelBorderColor(editTask.labels[0].name)
 
 	useEffect(() => {
 		if (!updated) {
@@ -41,11 +42,11 @@ const Task = ({ task }: Params) => {
 	) : (
 		<div
 			onClick={(e) => setOpen((e) => !e)}
-			className={`bg-base-light w-11/12 mb-5 px-5 pb-8 rounded-primary flex flex-col m-auto border-4 border-${labelColor}`}
+			className={`bg-base-light w-11/12 mb-5 px-5 pb-8 rounded-primary flex flex-col m-auto border-[6px] ${labelBorderColor}`}
 		>
 			{!edit && (
 				<div>
-					<div className={`font-medium my-5 text-${labelColor}`}>{editTask.labels[0].name}</div>
+					<div className={`font-semibold my-5 ${labelTextColor}`}>{editTask.labels[0].name}</div>
 					<div className='text-3xl font-bold'>{editTask.title}</div>
 					{!open ? (
 						<div className='text-xl truncate'>{editTask.body}</div>
