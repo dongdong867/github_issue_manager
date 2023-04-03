@@ -1,9 +1,8 @@
 'use client'
 
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Task from './components/Task'
 import Search from './components/Search'
-import { useRouter } from 'next/navigation'
 
 const Home = () => {
 	const [tasks, setTasks] = useState([] as Task[])
