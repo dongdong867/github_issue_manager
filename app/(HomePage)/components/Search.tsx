@@ -14,14 +14,10 @@ const Search = ({ isEndOfList, isSearching, setIsSearching, setTasks }: Params) 
 	const [query, setQuery] = useState('')
 	const [label, setLabel] = useState('all')
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setQuery(e.target.value)
-	}
-
 	return (
 		<div className='sticky top-0 w-screen bg-base-dark px-5 py-3 flex justify-around gap-x-3 text-lg'>
 			<SearchLabel label={label} route='search' setLabel={setLabel} />
-			<SearchBar value={query} onChange={handleChange} />
+			<SearchBar value={query} onChange={(e) => setQuery(e.target.value)} />
 			<SearchButton
 				key={query}
 				query={query}
