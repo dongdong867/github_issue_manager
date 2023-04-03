@@ -19,7 +19,15 @@ const DeleteButton = ({ task }: Params) => {
 		router.refresh()
 	}
 
-	return <button onClick={handleClick}>Click to delete task</button>
+	return (
+		<button
+			onClick={handleClick}
+			className='text-delete border-delete border-2 rounded-small px-4 py-2 transition-all duration-200
+			hover:text-primary-content-light hover:bg-delete'
+		>
+			Delete
+		</button>
+	)
 }
 
 export default DeleteButton
