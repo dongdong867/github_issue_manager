@@ -5,9 +5,10 @@ import React from 'react'
 
 type Params = {
 	task: Task
+	setDeleted: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const DeleteButton = ({ task }: Params) => {
+const DeleteButton = ({ task, setDeleted }: Params) => {
 	const router = useRouter()
 	const handleClick = async () => {
 		await fetch('/api/task', {
@@ -16,6 +17,7 @@ const DeleteButton = ({ task }: Params) => {
 				task: { ...task, state: 'close' }
 			})
 		})
+		setDeleted(true)
 		router.refresh()
 	}
 

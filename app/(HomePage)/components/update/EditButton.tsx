@@ -21,8 +21,8 @@ const EditButton = ({ task, edit, setEdit, setUpdated }: Params) => {
 			})
 		})
 		router.refresh()
-		setEdit(false)
 		setUpdated(true)
+		setEdit(false)
 	}
 
 	const handleCancelClick = () => {
@@ -44,7 +44,8 @@ const EditButton = ({ task, edit, setEdit, setUpdated }: Params) => {
 			</button>
 			<button
 				onClick={handleCancelClick}
-				className='rounded-small text-delete px-4 py-2 transition-all duration-200 border-delete border-2 hover:bg-delete hover:text-primary-content-light'
+				className='rounded-small text-delete px-4 py-2 transition-all duration-200 border-delete border-2
+				hover:bg-delete hover:text-primary-content-light'
 			>
 				Cancel
 			</button>

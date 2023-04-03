@@ -8,15 +8,16 @@ import { getLabelColor } from '@/app/lib/getLabelColor'
 
 type Params = {
 	task: Task
-	setUpdated: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const Task = ({ task, setUpdated }: Params) => {
+const Task = ({ task }: Params) => {
 	const [open, setOpen] = useState(false)
 	const [edit, setEdit] = useState(false)
 	const [editTitle, setEditTitle] = useState(task.title)
 	const [editBody, setEditBody] = useState(task.body)
 	const [editLabel, setEditLabel] = useState(task.labels[0].name as string)
+	const [updated, setUpdated] = useState(false)
+	const [deleted, setDeleted] = useState(false)
 
 	const labelColor = getLabelColor(task.labels[0].name)
 
@@ -28,28 +29,32 @@ const Task = ({ task, setUpdated }: Params) => {
 	}
 
 	useEffect(() => {
-		setEditTitle(task.title)
-		setEditBody(task.body)
-		setEditLabel(task.labels[0].name)
+		if (!updated) {
+			setEditTitle(task.title)
+			setEditBody(task.body)
+			setEditLabel(task.labels[0].name)
+		}
 	}, [edit])
 
-	return (
+	return deleted ? (
+		<div></div>
+	) : (
 		<div
 			onClick={(e) => setOpen((e) => !e)}
 			className={`bg-base-light w-11/12 mb-5 px-5 pb-8 rounded-primary flex flex-col m-auto border-4 border-${labelColor}`}
 		>
 			{!edit && (
 				<div>
-					<div className={`font-medium my-5 text-${labelColor}`}>{task.labels[0].name}</div>
-					<div className='text-3xl font-bold'>{task.title}</div>
+					<div className={`font-medium my-5 text-${labelColor}`}>{editTask.labels[0].name}</div>
+					<div className='text-3xl font-bold'>{editTask.title}</div>
 					{!open ? (
-						<div className='text-xl truncate'>{task.body}</div>
+						<div className='text-xl truncate'>{editTask.body}</div>
 					) : (
 						<div className='flex flex-col gap-y-10'>
-							<div className='text-xl h-max break-all'>{task.body}</div>
+							<div className='text-xl h-max break-all'>{editTask.body}</div>
 							<div className='flex justify-end gap-x-1 text-primary-content-light font-semibold'>
-								<EditButton task={task} edit={edit} setEdit={setEdit} setUpdated={setUpdated} />
-								<DeleteButton task={task} />
+								<EditButton task={editTask} edit={edit} setEdit={setEdit} setUpdated={setUpdated} />
+								<DeleteButton task={editTask} setDeleted={setDeleted} />
 							</div>
 						</div>
 					)}
