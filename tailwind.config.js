@@ -19,8 +19,10 @@ module.exports = {
 				'base-dark': '#1f1f1f',
 				'border-primary': '#7188B4',
 				open: '#4285f4',
-				'in-process': '#ce5e5e',
-				done: '#16c984'
+				'in-progress': '#E79E2F',
+				done: '#16c984',
+				delete: '#C94A30',
+				edit: '#4285f4'
 			},
 			borderRadius: {
 				primary: '20px',
