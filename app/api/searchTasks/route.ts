@@ -9,27 +9,12 @@ export async function GET(request: NextRequest) {
 	const accessToken = cookiesStore.get('accessToken')?.value
 
 	const query = request.nextUrl.searchParams.get('query')
-	const searchLabel = request.nextUrl.searchParams.get('searchLabel')
 	const page = request.nextUrl.searchParams.get('page')
 
-	let label = ''
-
-	switch (searchLabel) {
-		case 'open':
-			label = '+label:open'
-			break
-		case 'in progress':
-			label = '+label:in_progress'
-			break
-		case 'done':
-			label = '+label:done'
-			break
-		default:
-			break
-	}
+	const processedQuery = query?.replaceAll(' ', '+')
 
 	const data = await fetch(
-		`https://api.github.com/search/issues?q=${query}+is:issue+repo:${owner}/${repository}${label}&per_page=10&page=${page}`,
+		`https://api.github.com/search/issues?q=${processedQuery}+is:issue+repo:${owner}/${repository}&per_page=10&page=${page}`,
 		{
 			headers: {
 				accept: 'application/vnd.github+json',
