@@ -9,7 +9,7 @@ type Task = {
 }
 
 type Label = {
-	name: 'open' | 'in progress' | 'done'
+	name: 'open' | 'in_progress' | 'done'
 }
 
 type CreateTaskData = {
