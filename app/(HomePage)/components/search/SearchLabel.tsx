@@ -17,7 +17,7 @@ const SearchLabel = ({ label, setLabel }: Params) => {
 			>
 				<option value=''>all</option>
 				<option value='+label:open'>open</option>
-				<option value='+label:in_process'>in process</option>
+				<option value='+label:in_progress'>in progress</option>
 				<option value='+label:done'>done</option>
 			</select>
 		</div>
