@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import Task from './components/Task'
 import TopBar from './components/TopBar'
 import CreateTask from './components/create/CreateTask'
+import { useRouter } from 'next/navigation'
 
 const Home = () => {
 	const [tasks, setTasks] = useState([] as Task[])
@@ -16,6 +17,8 @@ const Home = () => {
 	const listEnd = useRef(null)
 	const isEndOfList = useIsOnScreen(listEnd)
 
+	const router = useRouter()
+
 	const fetchTasks = async () => {
 		fetch(`/api/getTasks?page=${page}`, {
 			cache: 'no-store'
@@ -27,6 +30,7 @@ const Home = () => {
 					setHasTask(false)
 				}
 			})
+			.catch((err) => router.push('/login'))
 	}
 
 	useEffect(() => {
