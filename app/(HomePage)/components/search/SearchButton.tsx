@@ -1,5 +1,6 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { FiSearch } from 'react-icons/fi'
 
@@ -23,6 +24,8 @@ const SearchButton = ({
 	const [page, setPage] = useState(1)
 	const [hasTask, setHasTask] = useState(true)
 
+	const router = useRouter()
+
 	let labelValue = ''
 	switch (label) {
 		case 'open':
@@ -39,28 +42,31 @@ const SearchButton = ({
 	}
 
 	const searchTasks = async () => {
-		const newQuery = query.replace(' ', '+')
-		await fetch(`/api/searchTasks?query=${query}+is:open${labelValue}&page=${page}`)
+		await fetch(`/api/searchTasks?query=${query}+is:open${labelValue}&page=${page}`, {
+			cache: 'no-cache'
+		})
 			.then((res) => res.json())
 			.then((data: Task[]) => {
 				setTasks((e) => [...e, ...data])
 				console.log(data)
 				if (data.length == 0) {
 					setHasTask(false)
+					setPage(1)
 				}
 			})
 		setPage((e) => e + 1)
 	}
 
 	const handleClick = async () => {
-		setTasks([])
 		setIsSearching(true)
-		searchTasks()
+		setPage(1)
+		setTasks([])
+		router.refresh()
 	}
 
 	useEffect(() => {
 		let ignore = false
-		if (isSearching && hasTask && !ignore) {
+		if (isSearching && hasTask && !ignore && isEndOfList) {
 			searchTasks()
 			console.log('page= ' + page)
 		}

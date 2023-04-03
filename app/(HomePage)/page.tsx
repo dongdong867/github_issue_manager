@@ -5,20 +5,15 @@ import Task from './components/Task'
 import Search from './components/Search'
 import { useRouter } from 'next/navigation'
 
-export const revalidate = 0
-
 const Home = () => {
 	const [tasks, setTasks] = useState([] as Task[])
 	const [page, setPage] = useState(1)
 	const [isSearching, setIsSearching] = useState(false)
 	const [isLoading, setLoading] = useState(false)
 	const [hasTask, setHasTask] = useState(true)
-	const [updated, setUpdated] = useState(false)
 
 	const listEnd = useRef(null)
 	const isEndOfList = useIsOnScreen(listEnd)
-
-	const router = useRouter()
 
 	const fetchTasks = async () => {
 		fetch(`/api/getTasks?page=${page}`, {
@@ -35,7 +30,7 @@ const Home = () => {
 
 	useEffect(() => {
 		let ignore = false
-		if (!isSearching && !ignore && hasTask) {
+		if (!isSearching && !ignore && hasTask && isEndOfList) {
 			setLoading(true)
 			fetchTasks().then(() => setLoading(false))
 			setPage((e) => e + 1)
@@ -46,15 +41,9 @@ const Home = () => {
 		}
 	}, [isEndOfList])
 
-	useEffect(() => {
-		router.refresh()
-	}, [updated])
+	const taskList = tasks.map((task) => <Task key={task.number} task={task} />)
 
-	const taskList = tasks.map((task) => (
-		<Task key={task.number} task={task} setUpdated={setUpdated} />
-	))
-
-	if (isLoading) return <div>Loading</div>
+	if (isLoading && taskList.at(9) != undefined) return <div>Loading</div>
 	if (!tasks) return <div>No data</div>
 
 	return (
@@ -66,14 +55,9 @@ const Home = () => {
 				setTasks={setTasks}
 			/>
 			{taskList}
-			{taskList.length >= 9 ? (
-				<div ref={listEnd}>end</div>
-			) : (
-				<div>
-					<div className='top-[120vh]'></div>
-					<div ref={listEnd}></div>
-				</div>
-			)}
+			<div ref={listEnd}>
+				<br />
+			</div>
 		</div>
 	)
 }
