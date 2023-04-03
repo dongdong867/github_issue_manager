@@ -5,12 +5,15 @@ import React from 'react'
 
 type Params = {
 	task: Task
+	edit: boolean
+	setEdit: React.Dispatch<React.SetStateAction<boolean>>
+	setUpdated: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const EditButton = ({ task }: Params) => {
+const EditButton = ({ task, edit, setEdit, setUpdated }: Params) => {
 	const router = useRouter()
 
-	const handleClick = async () => {
+	const handleSubmitClick = async () => {
 		await fetch('/api/task', {
 			method: 'PATCH',
 			body: JSON.stringify({
@@ -18,9 +21,39 @@ const EditButton = ({ task }: Params) => {
 			})
 		})
 		router.refresh()
+		setEdit(false)
+		setUpdated(true)
 	}
 
-	return <button onClick={handleClick}>click to edit</button>
+	const handleCancelClick = () => {
+		setEdit(false)
+	}
+
+	const handleEditButtonClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+		e.stopPropagation()
+		setEdit(true)
+	}
+
+	return edit ? (
+		<div className='flex justify-end gap-x-1 font-semibold'>
+			<button
+				onClick={handleSubmitClick}
+				className='rounded-small bg-button px-4 py-2 text-primary-content-light'
+			>
+				Update
+			</button>
+			<button
+				onClick={handleCancelClick}
+				className='rounded-small text-delete px-4 py-2 transition-all duration-200 border-delete border-2 hover:bg-delete hover:text-primary-content-light'
+			>
+				Cancel
+			</button>
+		</div>
+	) : (
+		<button onClick={(e) => handleEditButtonClick(e)} className='bg-edit rounded-small px-4 py-2'>
+			Edit
+		</button>
+	)
 }
 
 export default EditButton
