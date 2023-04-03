@@ -23,9 +23,24 @@ const SearchButton = ({
 	const [page, setPage] = useState(1)
 	const [hasTask, setHasTask] = useState(true)
 
+	let labelValue = ''
+	switch (label) {
+		case 'open':
+			labelValue = '+label:open'
+			break
+		case 'in_progress':
+			labelValue = '+label:in_progress'
+			break
+		case 'done':
+			labelValue = '+label:done'
+			break
+		default:
+			labelValue = ''
+	}
+
 	const searchTasks = async () => {
 		const newQuery = query.replace(' ', '+')
-		await fetch(`/api/searchTasks?query=${query}+is:open${label}&page=${page}`)
+		await fetch(`/api/searchTasks?query=${query}+is:open${labelValue}&page=${page}`)
 			.then((res) => res.json())
 			.then((data: Task[]) => {
 				setTasks((e) => [...e, ...data])

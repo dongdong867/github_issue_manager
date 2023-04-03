@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import SearchBar from './search/SearchBar'
 import SearchButton from './search/SearchButton'
-import SearchLabel from './search/SearchLabel'
+import SearchLabel from './Label'
 
 type Params = {
 	isEndOfList: boolean
@@ -20,7 +20,7 @@ const Search = ({ isEndOfList, isSearching, setIsSearching, setTasks }: Params) 
 
 	return (
 		<div className='sticky top-0 w-screen bg-base-dark px-5 py-3 flex justify-around gap-x-3 text-lg'>
-			<SearchLabel label={label} setLabel={setLabel} />
+			<SearchLabel label={label} route='search' setLabel={setLabel} />
 			<SearchBar value={query} onChange={handleChange} />
 			<SearchButton
 				key={query}
