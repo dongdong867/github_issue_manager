@@ -48,9 +48,8 @@ const SearchButton = ({
 			.then((res) => res.json())
 			.then((data: Task[]) => {
 				setTasks((e) => [...e, ...data])
-				if (data.length == 0) {
+				if (data.length < 10) {
 					setHasTask(false)
-					setPage(1)
 				}
 			})
 		setPage((e) => e + 1)
@@ -58,21 +57,25 @@ const SearchButton = ({
 
 	const handleClick = async () => {
 		setIsSearching(true)
-		setPage(1)
+		setHasTask(true)
 		setTasks([])
+		await searchTasks()
 		router.refresh()
 	}
 
 	useEffect(() => {
 		let ignore = false
-		if (isSearching && hasTask && !ignore && isEndOfList) {
+		if (isSearching && hasTask && !ignore && isEndOfList && page != 1) {
 			searchTasks()
+		}
+		if (!hasTask) {
+			setPage(1)
 		}
 
 		return () => {
 			ignore = true
 		}
-	}, [isEndOfList])
+	}, [isEndOfList, hasTask])
 
 	return (
 		<button
