@@ -19,7 +19,7 @@ const Search = ({ isEndOfList, isSearching, setIsSearching, setTasks }: Params) 
 	}
 
 	return (
-		<>
+		<div className='sticky top-0 w-screen bg-base-dark px-5 py-3 flex justify-around gap-x-3 text-lg'>
 			<SearchLabel label={label} setLabel={setLabel} />
 			<SearchBar value={query} onChange={handleChange} />
 			<SearchButton
@@ -31,7 +31,7 @@ const Search = ({ isEndOfList, isSearching, setIsSearching, setTasks }: Params) 
 				setIsSearching={setIsSearching}
 				setTasks={setTasks}
 			/>
-		</>
+		</div>
 	)
 }
 

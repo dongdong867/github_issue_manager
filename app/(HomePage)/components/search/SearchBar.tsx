@@ -8,7 +8,13 @@ type Params = {
 }
 
 const SearchBar = ({ value, onChange }: Params) => {
-	return <input type='text' onChange={onChange} />
+	return (
+		<input
+			type='text'
+			onChange={onChange}
+			className='w-10 grow shrink sm:w-max rounded-small px-2 font-semibold'
+		/>
+	)
 }
 
 export default SearchBar

@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
+import { FiSearch } from 'react-icons/fi'
 
 type Params = {
 	query: string
@@ -54,7 +55,14 @@ const SearchButton = ({
 		}
 	}, [isEndOfList])
 
-	return <button onClick={handleClick}>click to search</button>
+	return (
+		<button
+			onClick={handleClick}
+			className='rounded-small bg-button px-2 py-1 text-primary-content-light font-medium flex justify-center place-items-center'
+		>
+			<FiSearch size={25} />
+		</button>
+	)
 }
 
 export default SearchButton
