@@ -48,7 +48,6 @@ const SearchButton = ({
 			.then((res) => res.json())
 			.then((data: Task[]) => {
 				setTasks((e) => [...e, ...data])
-				console.log(data)
 				if (data.length == 0) {
 					setHasTask(false)
 					setPage(1)
@@ -68,7 +67,6 @@ const SearchButton = ({
 		let ignore = false
 		if (isSearching && hasTask && !ignore && isEndOfList) {
 			searchTasks()
-			console.log('page= ' + page)
 		}
 
 		return () => {
