@@ -16,7 +16,7 @@ const DeleteButton = ({ task }: Params) => {
 				task: { ...task, state: 'close' }
 			})
 		})
-		router.replace('/')
+		router.refresh()
 	}
 
 	return <button onClick={handleClick}>Click to delete task</button>
