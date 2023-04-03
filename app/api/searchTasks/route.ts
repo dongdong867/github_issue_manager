@@ -20,7 +20,8 @@ export async function GET(request: NextRequest) {
 				accept: 'application/vnd.github+json',
 				authorization: 'bearer ' + accessToken,
 				'x-github-api-version': '2022-11-28'
-			}
+			},
+			cache: 'no-cache'
 		}
 	)
 
