@@ -2,13 +2,15 @@
 
 import React, { useEffect, useRef, useState } from 'react'
 import Task from './components/Task'
-import Search from './components/Search'
+import TopBar from './components/TopBar'
+import CreateTask from './components/create/CreateTask'
 
 const Home = () => {
 	const [tasks, setTasks] = useState([] as Task[])
 	const [page, setPage] = useState(1)
 	const [isSearching, setIsSearching] = useState(false)
 	const [isLoading, setLoading] = useState(false)
+	const [isCreating, setIsCreating] = useState(false)
 	const [hasTask, setHasTask] = useState(true)
 
 	const listEnd = useRef(null)
@@ -47,13 +49,14 @@ const Home = () => {
 
 	return (
 		<div>
-			<Search
+			<TopBar
 				isEndOfList={isEndOfList}
 				isSearching={isSearching}
 				setIsSearching={setIsSearching}
 				setTasks={setTasks}
+				setIsCreating={setIsCreating}
 			/>
-			{taskList}
+			({isCreating && <CreateTask setIsCreating={setIsCreating} />}) ({taskList})
 			<div ref={listEnd}>
 				<br />
 			</div>
