@@ -8,19 +8,19 @@ export const LoginButton = () => {
 
 	return (
 		<div
-			className='w-[35vw] h-[30vw] border-4 rounded-3xl shadow overflow-hidden
-			flex flex-col justify-around place-items-center p-3 border-slate-600 font-bold'
+			className='w-full h-full max-w-2xl max-h-[450px] border-4 rounded-primary overflow-hidden bg-base-light
+			flex flex-col justify-around place-items-center py-5 px-3 mx-3 border-border-primary text-primary-content-dark font-bold'
 		>
-			<div className='text-5xl mb-5'>GitHub Task Manager</div>
+			<div className='text-3xl md:text-5xl text-center mb-5'>GitHub Task Manager</div>
 			<div className='w-full h-1/3 flex flex-col items-center gap-y-3'>
 				<BsGithub className='w-full h-full' />
-				<div className='text-3xl'>Sign in to GitHub</div>
+				<div className='text-xl md:text-3xl'>Sign in to GitHub</div>
 			</div>
 			<a
 				href={route}
 				className='w-4/5 h-[1/10] rounded-full overflow-hidden text-center my-5 shadow'
 			>
-				<div className='w-full h-full py-3 bg-[#16c984] text-2xl text-white'>Github Login</div>
+				<div className='w-full h-full py-3 bg-button text-2xl text-white'>Github Login</div>
 			</a>
 		</div>
 	)
