@@ -42,12 +42,14 @@ const EditTask = ({
 			<div className='flex flex-col gap-y-5'>
 				<div>
 					<div className='font-medium'>TITLE</div>
-					<input
-						type='text'
-						onChange={(e) => setTitle(e.target.value)}
-						value={title}
-						className=' bg-base-light pl-3 border-b-2 border-base-dark text-3xl font-bold'
-					/>
+					<div className='border-b-2 border-base-dark'>
+						<input
+							type='text'
+							onChange={(e) => setTitle(e.target.value)}
+							value={title}
+							className='w-full rounded-none bg-base-light pl-3  text-3xl font-bold'
+						/>
+					</div>
 				</div>
 				<div
 					contentEditable

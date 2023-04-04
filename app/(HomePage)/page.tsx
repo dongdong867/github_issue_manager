@@ -60,7 +60,7 @@ const Home = () => {
 				setTasks={setTasks}
 				setIsCreating={setIsCreating}
 			/>
-			({isCreating && <CreateTask setIsCreating={setIsCreating} />}) ({taskList})
+			{isCreating && <CreateTask setIsCreating={setIsCreating} />} {taskList}
 			<div ref={listEnd}>
 				<br />
 			</div>
